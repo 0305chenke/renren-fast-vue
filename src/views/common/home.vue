@@ -1,5 +1,6 @@
 <template>
   <div class="mod-home">
+    <div id="mod">
     <h3>项目介绍</h3>
     <ul>
       <li>renren-fast-vue基于vue、element-ui构建开发，实现<a href="https://gitee.com/renrenio/renren-fast" target="_blank">renren-fast</a>后台管理前端功能，提供一套更优的前端解决方案</li>
@@ -23,6 +24,7 @@
       <li>高级群：324780204(大牛云集，跟大牛学习新技能)</li>
       <li>普通群：145799952(学习交流，互相解答各种疑问)</li>
     </ul>
+    </div>
   </div>
 </template>
 
@@ -33,7 +35,14 @@
 
 <style>
   .mod-home {
-    line-height: 1.5;
+    position: fixed;
+      top:50px;
+      left: 14%;
+    width: 100%;
+    height: 100%;
+    background-image: url(~@/assets/img/login.jpg);
+    background-size: cover;
+    color: aliceblue
   }
 </style>
 
