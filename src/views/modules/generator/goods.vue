@@ -13,6 +13,20 @@
         <el-input v-model="dataForm.key" placeholder="介绍" clearable></el-input>
       </el-form-item>
       <el-form-item>
+        <el-input v-model="dataForm.min" placeholder="最低价格" clearable></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="dataForm.max" placeholder="最高价格" clearable></el-input>
+      </el-form-item>
+        <el-select v-model="dataForm.sort" clearable placeholder="排序">
+        <el-option
+          v-for="item in sortOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
         <el-button v-if="isAuth('generator:goods:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
         <el-button v-if="isAuth('generator:goods:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
@@ -93,7 +107,10 @@
       return {
         dataForm: {
           key: '',
-          value: ''
+          value: '',
+          min: '',
+          max: '',
+          sort: ''
         },
         dataList: [],
         options: [],
@@ -102,7 +119,20 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        addOrUpdateVisible: false,
+        sortOptions: [{
+          value: 1,
+          label: '价格从高到低'
+        }, {
+          value: 2,
+          label: '价格从低到高'
+        }, {
+          value: 3,
+          label: '库存从高到低'
+        }, {
+          value: 4,
+          label: '库存从低到高'
+        }]
       }
     },
     components: {
@@ -125,7 +155,10 @@
             'page': this.pageIndex,
             'limit': this.pageSize,
             'key': this.dataForm.key,
-            'value': this.dataForm.value
+            'value': this.dataForm.value,
+            'min': this.dataForm.min,
+            'max': this.dataForm.max,
+            'sort': this.dataForm.sort
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
